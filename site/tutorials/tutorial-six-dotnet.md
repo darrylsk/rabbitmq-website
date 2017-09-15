@@ -334,8 +334,8 @@ public class RpcClient
     private readonly BlockingCollection<string> respQueue = new BlockingCollection<string>();
     private readonly IBasicProperties props;
 
-    public RpcClient()
-    {
+public RpcClient()
+{
         var factory = new ConnectionFactory() { HostName = "localhost" };
 
         connection = factory.CreateConnection();
@@ -381,6 +381,21 @@ public class RpcClient
         connection.Close();
     }
 }
+
+public class Rpc
+{
+    public static void Main()
+    {
+        var rpcClient = new RpcClient();
+
+        Console.WriteLine(" [x] Requesting fib(30)");
+        var response = rpcClient.Call("30");
+
+        Console.WriteLine(" [.] Got '{0}'", response);
+        rpcClient.Close();
+    }
+}
+
 </pre>
 
 The client code is slightly more involved:
